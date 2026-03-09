@@ -1,12 +1,12 @@
-const js = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-const prettier = require("eslint-plugin-prettier");
-const configPrettier = require("eslint-config-prettier");
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import prettier from 'eslint-plugin-prettier';
+import configPrettier from 'eslint-config-prettier';
 
-module.exports = [
+export default [
   // Ignorar arquivos de config
   {
-    ignores: ["eslint.config.js", "node_modules/**"],
+    ignores: ['eslint.config.js', 'node_modules/**'],
   },
 
   // Base JS
@@ -14,8 +14,8 @@ module.exports = [
     ...js.configs.recommended,
     languageOptions: {
       globals: {
-        module: "readonly",
-        require: "readonly",
+        module: 'readonly',
+        require: 'readonly',
       },
     },
   },
@@ -24,22 +24,20 @@ module.exports = [
   ...tseslint.configs.recommended,
 
   {
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     languageOptions: {
       parser: tseslint.parser,
+      parserOptions: {
+        project: './tsconfig.json',
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     plugins: {
       prettier,
     },
     rules: {
-      "prettier/prettier": "error",
+      'prettier/prettier': 'error',
     },
-  },
-
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: './tsconfig.json',   // adjust if your config has a different name
-    tsconfigRootDir: __dirname,   // this file’s folder – avoids ambiguity
   },
 
   configPrettier,

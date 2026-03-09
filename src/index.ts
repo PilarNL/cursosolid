@@ -1,1 +1,2 @@
-console.log("olá mundo TypeScript");
+const nome = 'Lucas';
+console.log(`Olá, ${nome}!`);
