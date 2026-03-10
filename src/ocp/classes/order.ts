@@ -26,7 +26,9 @@ export class Order {
       return;
     }
     this.orderStatus = 'closed';
-    this.messaging.sendMessage('Obrigado pela compra!Seu pedido foi recebido.');
+    this.messaging.sendMessage(
+      `Obrigado pela compra! Seu pedido de ${this.cart.totalWithDiscount().toFixed(2)} foi recebido.`,
+    );
     this.persistency.saveOrder();
     this.cart.clear();
     console.log('Pedido finalizado.');
